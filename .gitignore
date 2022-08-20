@@ -22,14 +22,10 @@ content/person
 content/project
 node_modules
 !.env.example
-.env
-.env.*
 yarn.lock
 .installed
 package-lock.json
 dist
 .temp
-run*
-install*
 public
 static/css
