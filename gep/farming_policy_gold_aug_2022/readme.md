@@ -2,8 +2,8 @@
 
 To link a farm to a *new* policy, two DAO proposals should be created:
 
-1: To create the farming policy (can be reused by multiple farms)
-2: To attach the farm to a certain policy ID with some optional restrictions
+- 1 To create the farming policy (can be reused by multiple farms)
+- 2 To attach the farm to a certain policy ID with some optional restrictions
 
 
 For every proposal, ideally a forum post should be created with the details of what/why.
