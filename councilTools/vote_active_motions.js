@@ -1,5 +1,6 @@
 const { ApiPromise, WsProvider, Keyring } = require("@polkadot/api");
 const types = require("../gep/farming_policy_gold_aug_2022/types.json");
+const keyFile = require('./key.json')
 
 require("./params.js");
 

@@ -63,32 +63,17 @@ async function main() {
   let nonce = AccNonce.toNumber();
   console.log(`nonce at start ${nonce}`);
   farmsWithNodes.forEach((nodes, farmId) => {
-    console.log(`calling farm cert with id ${farmId} with nonce: ${nonce}`);
-
-    // Gold certify farm
-    const farmCertificationTx = api.tx.tfgridModule.setFarmCertification(
-      api.createType("u32", farmId),
-      api.createType("FarmCertification", "Gold")
-    );
-
-    const farmCertificationProposal = api.tx.council
-      .propose(3, farmCertificationTx, farmCertificationTx.length)
-      .signAndSend(key, { nonce: api.createType("Index", nonce) }, callback);
-    allTransaction.push(farmCertificationProposal);
-    nonce += 1;
-
     // Certify nodes
     nodes.forEach((n) => {
       console.log(`calling node cert with id ${n} with nonce: ${nonce}`);
+
       const nodeTx = api.tx.tfgridModule.setNodeCertification(
         api.createType("u32", n),
         api.createType("NodeCertification", "Certified")
-      );
-      const nodeProposal = api.tx.council
-        .propose(3, nodeTx, nodeTx.length)
-        .signAndSend(key, { nonce: api.createType("Index", nonce) }, callback);
+      ).signAndSend(key, { nonce: api.createType("Index", nonce) }, callback);
+
+      allTransaction.push(nodeTx)
       nonce += 1;
-      allTransaction.push(nodeProposal);
     });
   });
 
