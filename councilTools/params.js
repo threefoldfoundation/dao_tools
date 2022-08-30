@@ -9,11 +9,6 @@ url = process.env.NET;
 
 types = require("./types.json");
 
-if (!mnemonic) {
-  // strValue was empty string, false, 0, null, undefined, ...
-  throw new Error("KEY = mnemonic has not been set, please do export...");
-}
-
 if (!url) {
   throw new Error("NET has not been set, please do export...");
 }

@@ -1,6 +1,6 @@
 const { ApiPromise, WsProvider, Keyring } = require("@polkadot/api");
 const types = require("../gep/farming_policy_gold_aug_2022/types.json");
-
+const keyFile = require('./key.json')
 const FARMS_TO_ATTACH = [1, 2];
 
 require("./params.js");
@@ -15,7 +15,14 @@ async function main() {
   const provider = new WsProvider(url);
   const api = await ApiPromise.create({ provider, types });
   const keyring = new Keyring({ type: "sr25519" });
-  const key = keyring.addFromUri(mnemonic);
+
+  let key
+  if (mnemonic && mnemonic !== '') {
+    key = keyring.addFromUri(mnemonic);
+  } else {
+    key = keyring.addFromJson(keyFile)
+  }
+  console.log(`key loaded with address ${key.address}`)
 
   const farmsWithNodes = new Map();
 
@@ -23,7 +30,11 @@ async function main() {
 
   const nodes = await api.query.tfgridModule.nodes.entries();
   const parsedNodes = nodes.map((node) => {
-    return node[1].toJSON();
+    const n = node[1].toJSON()
+    if (n.farm_id) {
+      n.farmId = n.farm_id
+    }
+    return n
   });
 
   parsedNodes.forEach((node) => {
