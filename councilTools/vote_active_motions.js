@@ -7,7 +7,16 @@ async function main() {
   const provider = new WsProvider(url);
   const api = await ApiPromise.create({ provider, types });
   const keyring = new Keyring({ type: "sr25519" });
-  const key = keyring.addFromUri(mnemonic);
+
+  let key
+  if (mnemonic && mnemonic !== '') {
+    key = keyring.addFromUri(mnemonic);
+  } else {
+    key = keyring.addFromJson(keyFile)
+    key.unlock(process.env.PASSWORD)
+  }
+  console.log(`key loaded with address ${key.address}`)
+
   let AccNonce = await api.rpc.system.accountNextIndex(key.address);
 
   const proposals = await api.query.council.proposals();
