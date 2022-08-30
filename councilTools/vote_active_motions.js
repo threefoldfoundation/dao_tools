@@ -38,6 +38,8 @@ async function main() {
   const hashes = await Promise.all(voteCalls);
   console.log(`transaction submitted with hashes`);
   hashes.forEach((h) => console.log(h));
+
+  process.exit(0)
 }
 
 const callback = ({ events = [], status }) => {
