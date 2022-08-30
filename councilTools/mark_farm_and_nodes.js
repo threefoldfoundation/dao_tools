@@ -1,7 +1,6 @@
 const { ApiPromise, WsProvider, Keyring } = require("@polkadot/api");
 const types = require("../gep/farming_policy_gold_aug_2022/types.json");
 const keyFile = require('./key.json')
-const FARMS_TO_ATTACH = [1, 2];
 
 require("./params.js");
 
@@ -21,6 +20,7 @@ async function main() {
     key = keyring.addFromUri(mnemonic);
   } else {
     key = keyring.addFromJson(keyFile)
+    key.unlock(process.env.PASSWORD)
   }
   console.log(`key loaded with address ${key.address}`)
 

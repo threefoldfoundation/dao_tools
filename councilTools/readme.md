@@ -1,6 +1,6 @@
 # Tools for council members
 
-Either you run the script with `KEY="..." ..` or you place your JSON keyfile in this directory and name it `key.json`
+Either you run the script with `KEY="..." ..` or you place your JSON keyfile in this directory and name it `key.json` and export `PASSWORD="..."`
 
 ## Marking a farm as Gold and it's nodes as Certified
 
